@@ -111,6 +111,8 @@ def check(path):
     # figures
     if n >= 200 and len(FIG.findall(text)) < n / 100: opp.append(f"figures {len(FIG.findall(text))} for {n} words")
     if not main.find(["ul", "ol", "table", "dl"]): opp.append("no list or table")
+    tk = main.find("aside", class_="takeaways")
+    if not tk or not tk.find("h2") or len(tk.find_all("li")) < 3: must.append("no Key takeaways box (h2 + at least 3 points)")
     faqdl = main.select(".faq dt")
     if not (6 <= len(faqdl) <= 10): must.append(f"FAQ has {len(faqdl)} questions")
     if faqdl and "FAQPage" not in types: opp.append("FAQ not in FAQPage schema")
