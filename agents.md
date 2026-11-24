@@ -1,0 +1,55 @@
+# Pass Your South Carolina Contractor Exam: agent guide
+
+> Exam prep books, pre-printed tabs, online courses, live classes and licensing services for South Carolina contractor exams (Contractor's Licensing Board, Residential Builders Commission and local electrician and plumber cards). 245 products for 33 licenses, fulfilled by 1 Exam Prep. Contact: (877) 775-9400, sales@1examprep.com.
+
+## Key facts (checked November 24, 2026)
+- CLB license required for regulated commercial work over $10,000; fee $350.
+- Commercial Business and Law exam: 50 questions, 125 minutes, 35 correct to pass, open book.
+- Residential Business and Law exam: scale score 68.
+- RBC Exam Eligibility letter valid 1 year.
+- Books ship free by USPS Media Mail (US only). All sales final.
+
+## Main pages
+- [Home](https://passyoursouthcarolinacontractorexam.com/)
+- [All licenses](https://passyoursouthcarolinacontractorexam.com/licenses/)
+- [How to get a South Carolina contractor license](https://passyoursouthcarolinacontractorexam.com/how-to-get-licensed/)
+- [FAQ](https://passyoursouthcarolinacontractorexam.com/faq/)
+- [Contact](https://passyoursouthcarolinacontractorexam.com/contact/)
+
+## Licenses
+- [NASCLA Commercial General Building](https://passyoursouthcarolinacontractorexam.com/commercial-general-building/): 7 packages from $199.99. The NASCLA Commercial General Building exam is the path to an Unlimited Building (UB) license, which lets a South Carolina general contractor build commercial structures of any height.
+- [Limited Building](https://passyoursouthcarolinacontractorexam.com/limited-building/): 8 packages from $74.99. The Limited Building (LB) exam covers commercial building work up to 3 stories in height.
+- [Asphalt Paving](https://passyoursouthcarolinacontractorexam.com/asphalt-paving/): 8 packages from $75. The Asphalt Paving classification covers commercial asphalt surfacing, base preparation and related grading for roads, lots and drives.
+- [Boiler Installation](https://passyoursouthcarolinacontractorexam.com/boiler-installation/): 7 packages from $295. The Boiler Installation classification covers installing and repairing commercial boilers, piping and controls under the CLB.
+- [Concrete](https://passyoursouthcarolinacontractorexam.com/concrete/): 8 packages from $48.99. The Concrete classification covers commercial concrete foundations, slabs, structural concrete and formwork.
+- [Concrete Paving](https://passyoursouthcarolinacontractorexam.com/concrete-paving/): 7 packages from $295. The Concrete Paving classification covers commercial concrete roads, parking areas, curbs and flatwork.
+- [Grading](https://passyoursouthcarolinacontractorexam.com/grading/): 3 packages from $19.95. The Grading classification covers commercial earthwork, excavation, site grading and erosion control.
+- [Marine](https://passyoursouthcarolinacontractorexam.com/marine/): 2 packages from $42.99. The Marine classification covers docks, piers, bulkheads, seawalls and other work on or over the water.
+- [Nonstructural Renovation](https://passyoursouthcarolinacontractorexam.com/nonstructural-renovation/): 8 packages from $64.99. The Nonstructural Renovation classification covers commercial interior renovation that does not touch structural elements: drywall, ceilings, flooring, millwork and finishes.
+- [Pipelines](https://passyoursouthcarolinacontractorexam.com/pipelines/): 1 packages from $490.99. The Pipelines classification covers commercial pipeline construction for gas, petroleum, water and other transmission lines.
+- [Roofing](https://passyoursouthcarolinacontractorexam.com/roofing/): 8 packages from $79.99. The Roofing classification covers commercial roof systems, including low-slope membranes, metal panels, steep-slope roofing and flashing.
+- [Structural Framing](https://passyoursouthcarolinacontractorexam.com/structural-framing/): 1 packages from $345. The Structural Framing classification covers commercial framing in wood, light-gauge steel and structural steel.
+- [Swimming Pools](https://passyoursouthcarolinacontractorexam.com/swimming-pools/): 8 packages from $14.95. The Swimming Pools classification covers commercial and residential pool construction, equipment and repair.
+- [Water and Sewer Lines](https://passyoursouthcarolinacontractorexam.com/water-sewer-lines/): 8 packages from $69.99. The Water and Sewer Lines classification covers underground water mains, sanitary sewers, storm drains and service lines.
+- [Water and Sewer Plants](https://passyoursouthcarolinacontractorexam.com/water-sewer-plants/): 7 packages from $284.99. The Water and Sewer Plants classification covers treatment plants, pump stations and lift stations.
+- [Wood Frame Structures](https://passyoursouthcarolinacontractorexam.com/wood-frame/): 7 packages from $295. The Wood Frame Structures classification covers commercial wood-frame buildings.
+- [Air Conditioning](https://passyoursouthcarolinacontractorexam.com/air-conditioning/): 8 packages from $89.99. The Air Conditioning classification covers commercial cooling systems, ductwork and controls.
+- [Heating](https://passyoursouthcarolinacontractorexam.com/heating/): 8 packages from $124.99. The Heating classification covers commercial heating systems, furnaces, hydronic systems and fuel gas piping.
+- [Refrigeration](https://passyoursouthcarolinacontractorexam.com/refrigeration/): 7 packages from $295. The Refrigeration classification covers commercial refrigeration equipment, walk-ins and process cooling.
+- [Plumbing](https://passyoursouthcarolinacontractorexam.com/plumbing/): 8 packages from $34.99. The Plumbing classification covers commercial plumbing, drainage, venting and water distribution.
+- [Electrical](https://passyoursouthcarolinacontractorexam.com/electrical/): 9 packages from $48.99. The Electrical classification covers commercial electrical contracting under the CLB.
+- [Lightning Protection](https://passyoursouthcarolinacontractorexam.com/lightning-protection/): 1 packages from $219.55. The Lightning Protection classification covers air terminals, conductors and grounding for lightning protection systems.
+- [Fire Alarm](https://passyoursouthcarolinacontractorexam.com/fire-alarm/): 6 packages from $295. A Fire Alarm Contractor license lets a business design, install, service and maintain fire alarm systems in South Carolina.
+- [Residential Builder](https://passyoursouthcarolinacontractorexam.com/residential-builder/): 8 packages from $53.99. A Residential Builder license from the Residential Builders Commission covers building and remodeling homes in South Carolina.
+- [Residential Electrical](https://passyoursouthcarolinacontractorexam.com/residential-electrical/): 13 packages from $42.99. A Residential Electrical license from the Residential Builders Commission covers electrical work on homes.
+- [Residential HVAC](https://passyoursouthcarolinacontractorexam.com/residential-hvac/): 8 packages from $69.99. A Residential HVAC license from the Residential Builders Commission covers heating, air conditioning and ventilation work on homes.
+- [Residential Plumbing](https://passyoursouthcarolinacontractorexam.com/residential-plumbing/): 8 packages from $49.99. A Residential Plumbing license from the Residential Builders Commission covers plumbing work on homes.
+- [Journeyman Electrician](https://passyoursouthcarolinacontractorexam.com/journeyman-electrician/): 15 packages from $59.95. Journeyman electrician cards in South Carolina are issued by cities and counties, which usually require a PSI or ICC exam based on the National Electrical Code.
+- [Master Electrician](https://passyoursouthcarolinacontractorexam.com/master-electrician/): 17 packages from $59.95. Master electrician credentials in South Carolina are issued locally, and many electrical contractors also hold the CLB Electrical classification.
+- [Journeyman Plumber](https://passyoursouthcarolinacontractorexam.com/journeyman-plumber/): 2 packages from $175. Journeyman plumber cards in South Carolina are issued at the local level and tested on the International Plumbing Code.
+- [Commercial Business and Law](https://passyoursouthcarolinacontractorexam.com/commercial-business-law/): 12 packages from $19.95. The Business Management and Law for Commercial Contractors exam is required for every CLB general and mechanical license, and for alarm and pool licenses.
+- [Residential Business and Law](https://passyoursouthcarolinacontractorexam.com/residential-business-law/): 11 packages from $24.95. The Business Management and Law for Residential Builders exam is required for the Residential Builder, Residential Electrical, Residential HVAC and Residential Plumbing licenses.
+- [Licensing Help and Business Setup](https://passyoursouthcarolinacontractorexam.com/licensing-services/): 6 packages from $99.99. Licensing help covers the paperwork around the exam: the LLR application, business formation, and starter courses that explain the process.
+
+## Buying
+Each product page has a Buy now link to https://1examprep.com/cart/<variant-id>:1 on the 1 Exam Prep store. Product pages carry Product JSON-LD with price, availability, shipping and return policy.

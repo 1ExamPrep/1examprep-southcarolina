@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1560" height="300" viewBox="0 0 1560 300">
+<g transform="scale(0.5859)">
+<rect width="512" height="512" rx="112" fill="#0B2545"/>
+<g transform="translate(150 150)"><circle r="62" fill="#F2C14E"/><circle cx="26" cy="-12" r="56" fill="#0B2545"/></g>
+<g transform="translate(300,430) scale(0.92)" fill="#ffffff"><path d="M-9 0 C-6 -120 -2 -240 6 -330 L18 -330 C12 -240 10 -120 11 0 Z"/><path d="M12 -335 Q-50.8 -374.1 -113.6 -303.0 Q-44.8 -354.1 12 -329 Z"/><path d="M12 -335 Q-59.7 -393.4 -131.4 -345.2 Q-53.7 -373.4 12 -329 Z"/><path d="M12 -335 Q-42.2 -402.4 -96.4 -369.3 Q-36.2 -382.4 12 -329 Z"/><path d="M12 -335 Q-41.2 -424.2 -94.4 -421.4 Q-35.2 -404.2 12 -329 Z"/><path d="M12 -335 Q-21.0 -425.0 -54.0 -433.2 Q-15.0 -405.0 12 -329 Z"/><path d="M12 -335 Q-9.8 -444.5 -31.7 -483.8 Q-3.8 -424.5 12 -329 Z"/><path d="M12 -335 Q9.4 -436.5 6.9 -480.0 Q15.4 -416.5 12 -329 Z"/><path d="M12 -335 Q28.7 -448.8 45.3 -496.0 Q34.7 -428.8 12 -329 Z"/><path d="M12 -335 Q41.8 -429.9 71.6 -446.5 Q47.8 -409.9 12 -329 Z"/><path d="M12 -335 Q62.6 -430.2 113.3 -436.3 Q68.6 -410.2 12 -329 Z"/><path d="M12 -335 Q65.6 -408.0 119.2 -382.9 Q71.6 -388.0 12 -329 Z"/><path d="M12 -335 Q84.1 -399.7 156.1 -359.4 Q90.1 -379.7 12 -329 Z"/><path d="M12 -335 Q76.8 -379.1 141.5 -313.9 Q82.8 -359.1 12 -329 Z"/><path d="M12 -335 Q89.6 -364.4 167.2 -282.7 Q95.6 -344.4 12 -329 Z"/><path d="M12 -335 Q74.1 -349.8 136.2 -254.8 Q80.1 -329.8 12 -329 Z"/><ellipse cx="12" cy="-329" rx="20" ry="14"/></g>
+<g transform="translate(372 392)"><circle r="58" fill="#2E9E5B" stroke="#0B2545" stroke-width="12"/><path d="M-26 2 l18 20 l36 -42" stroke="#fff" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+</g>
+<text x="340" y="140" font-family="Poppins" font-weight="600" font-size="104" fill="#fff" letter-spacing="-2">Pass Your <tspan fill="#7BD389">SC</tspan> Exam</text>
+<text x="344" y="226" font-family="Poppins" font-weight="400" font-size="52" fill="#cfd8e3">South Carolina contractor exam prep</text>
+</svg>
