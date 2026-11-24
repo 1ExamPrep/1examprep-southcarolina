@@ -10,6 +10,8 @@ from collections import defaultdict
 ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 from sccopy import *  # noqa
+from scblog import POSTS, AUTHOR, BSRC
+SRC.update(BSRC)
 
 # In the GitHub repo the scripts live in source/ and the site is written to the repo root.
 OUT = os.path.dirname(ROOT) if os.path.basename(ROOT) == "source" else os.path.join(ROOT, "site")
@@ -134,7 +136,7 @@ def load_products():
 
 
 # ---------------------------------------------------------------- layout
-NAV = [("/licenses/", "Licenses"), ("/how-to-get-licensed/", "How to get licensed"), ("/faq/", "FAQ"), ("/contact/", "Contact")]
+NAV = [("/licenses/", "Licenses"), ("/how-to-get-licensed/", "How to get licensed"), ("/blog/", "Blog"), ("/faq/", "FAQ"), ("/contact/", "Contact")]
 
 
 def ld_org():
@@ -181,7 +183,7 @@ def head(p):
 <meta name="description" content="{E(desc)}">
 <link rel="canonical" href="{SITE}{path}">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta property="og:type" content="{'product' if p.get('product') else 'website'}">
+<meta property="og:type" content="{'product' if p.get('product') else ('article' if p.get('article') else 'website')}">
 <meta property="og:site_name" content="{BRAND}">
 <meta property="og:title" content="{E(title)}">
 <meta property="og:description" content="{E(desc)}">
@@ -198,7 +200,7 @@ def head(p):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">{pre}
-<link rel="stylesheet" href="/assets/site.css?v=4">
+<link rel="stylesheet" href="/assets/site.css?v=5">
 <script src="/assets/site.js?v=3" defer></script>{lds}
 </head>'''
 
@@ -224,7 +226,7 @@ def footer():
 <p>Exam prep books, tabs, courses and licensing help for South Carolina contractors. Orders are fulfilled by 1 Exam Prep.</p>
 <p class="fcontact"><a href="tel:{TEL}">{PHONE}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p></div>
 <div><p class="fh">Popular licenses</p><ul>{links}</ul></div>
-<div><p class="fh">Site</p><ul><li><a href="/licenses/">All licenses</a></li><li><a href="/how-to-get-licensed/">How to get licensed</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/contact/">Contact</a></li><li><a href="/sitemap.xml">Sitemap</a></li></ul>
+<div><p class="fh">Site</p><ul><li><a href="/licenses/">All licenses</a></li><li><a href="/how-to-get-licensed/">How to get licensed</a></li><li><a href="/blog/">Blog</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/contact/">Contact</a></li><li><a href="/sitemap.xml">Sitemap</a></li></ul>
 <p class="fh">Official sources</p><ul><li><a href="https://llr.sc.gov/clb/" rel="noopener">SC Contractor's Licensing Board</a></li><li><a href="https://llr.sc.gov/res/" rel="noopener">SC Residential Builders Commission</a></li></ul></div>
 </div><div class="wrap fbase"><p>&copy; 2026 {BRAND}. Not affiliated with SC LLR or PSI. Prices in US dollars.</p></div></footer>
 </body>
@@ -262,7 +264,7 @@ def render(p):
     sec = "".join(f'<section id="s-{sid}"><h2 id="{sid}">{E(h)}</h2>{body}</section>' for sid, h, body in p["sections"])
     side = f'<aside class="sidebar">{p.get("side", "")}{help_card()}</aside>' if p.get("sidebar", True) else ""
     updated = f'<p class="updated">Last updated <time datetime="{CHECKED}">{CHECKED_TEXT}</time></p>'
-    hero = p.get("hero_html") or f'''<div class="page-hero"><div class="wrap">{breadcrumb(p["crumbs"])}<div class="ph-row">{p.get("hero_img", "")}<div><p class="eyebrow">{E(p.get("eyebrow", "South Carolina"))}</p><h1>{E(p["h1"])}</h1></div></div></div></div>'''
+    hero = p.get("hero_html") or f'''<div class="page-hero"><div class="wrap">{breadcrumb(p["crumbs"])}<div class="ph-row">{p.get("hero_img", "")}<div><p class="eyebrow">{E(p.get("eyebrow", "South Carolina"))}</p><h1>{E(p["h1"])}</h1>{p.get("byline", "")}</div></div></div></div>'''
     pre = p.get("pre", "")
     body = f'''{header()}
 <main id="main">{hero}
@@ -760,6 +762,108 @@ def contact_page():
                 ld=[cp, ld_org(), crumbs_ld(crumbs), faq_ld(faq)])
 
 
+# ---------------------------------------------------------------- blog
+def nice_date(d):
+    import datetime
+    return datetime.date.fromisoformat(d).strftime("%B %-d, %Y")
+
+
+def post_page(post):
+    path = f"/blog/{post['slug']}/"
+    crumbs = [("/", "Home"), ("/blog/", "Blog"), (path, post["title"])]
+    byline = (f'<div class="post-meta">By <span class="author">{AUTHOR}</span> · Published <time datetime="{post["date"]}">{nice_date(post["date"])}</time>'
+              f' · Updated <time datetime="{post["updated"]}">{nice_date(post["updated"])}</time></div>')
+    words = sum(wc(b) for _, _, b in post["sections"])
+    art = {"@type": "BlogPosting", "@id": SITE + path + "#post", "headline": post["title"], "url": SITE + path, "mainEntityOfPage": SITE + path,
+           "description": post["meta_desc"], "image": SITE + "/assets/img/og.jpg", "datePublished": post["date"], "dateModified": post["updated"],
+           "author": {"@type": "Person", "name": AUTHOR}, "publisher": publisher(), "inLanguage": "en-US", "keywords": ", ".join(post["tags"]),
+           "articleSection": "South Carolina contractor licensing", "wordCount": words, "isPartOf": {"@id": SITE + "/blog/#blog"}}
+    others = [x for x in POSTS if x is not post]
+    related = "".join(f'<li><a href="/blog/{x["slug"]}/">{E(x["title"])}</a></li>' for x in others)
+    side = ('<div class="side-box"><p class="side-h">In this post</p><ul class="toc">' + "".join(f'<li><a href="#{sid}">{E(h)}</a></li>' for sid, h, _ in post["sections"]) + "</ul></div>"
+            + (f'<div class="side-box"><p class="side-h">More from the blog</p><ul class="toc">{related}</ul></div>' if related else ""))
+    return dict(path=path, title=post["meta_title"], desc=post["meta_desc"], h1=post["title"], lead=E(post["lead"]), takeaways=post["takeaways"],
+                sections=post["sections"], faq=post["faq"], sources=post["sources"], crumbs=crumbs, eyebrow="Blog · " + post["tags"][0],
+                byline=byline, side=side, article=True, ld=[art, crumbs_ld(crumbs), faq_ld(post["faq"])])
+
+
+def post_card(x):
+    return (f'<li class="post-card"><p class="post-tag">{E(x["tags"][0])}</p><h3 id="post-{x["slug"]}"><a href="/blog/{x["slug"]}/">{E(x["title"])}</a></h3>'
+            f'<p>{E(x["excerpt"])}</p><p class="post-by">By {AUTHOR} · <time datetime="{x["date"]}">{nice_date(x["date"])}</time></p>'
+            f'<a class="more" href="/blog/{x["slug"]}/">Read the answers</a></li>')
+
+
+def blog_index():
+    path = "/blog/"
+    title = "South Carolina Contractor Exam Blog | Pass Your SC Exam"
+    desc = "Plain-English guides to South Carolina contractor licensing: CLB and Residential Builders rules, PSI exams, study plans and costs. Checked against LLR."
+    lead = ("The Pass Your SC Exam blog answers the questions South Carolina contractors ask before they test: which board licenses them, what the PSI exams cover, "
+            "how long to study and what it costs. Every post is checked against LLR and PSI and dated, so you know the facts are current.")
+    cards = "".join(post_card(x) for x in POSTS)
+    latest = POSTS[0]
+    n = len(POSTS)
+    sections = [
+        ("latest-posts", "What are the latest posts?", f'<p>{n} post{"s" if n != 1 else ""} so far, newest first. Each one opens with a short answer, then goes question by question with tables, a FAQ and a list of official sources.</p><ul class="post-list">{cards}</ul>'),
+        ("start-here", "Where should a new candidate start?",
+         "<p>Start with the board, because everything else follows from it. Commercial work over $10,000 means the Contractor's Licensing Board. Home building over $5,000 means the Residential Builders Commission. "
+         f"Then read <a href='/blog/{latest['slug']}/'>{E(latest['title'])}</a> for the 15 questions most people ask, and the <a href='/how-to-get-licensed/'>licensing guide</a> for the step-by-step process. "
+         "When you know your classification, its <a href='/licenses/'>license page</a> lists the exams, the job limits and every book and course we carry for it.</p>"
+         "<ol><li>Decide between CLB and RBC by the type and value of your work.</li><li>Pick the classification, such as Roofing or Residential Builder.</li>"
+         "<li>Check the PSI bulletin for the book list and editions.</li><li>Get the books 4 to 8 weeks before your exam date.</li><li>Tab, practice and take 2 timed exams before test day.</li></ol>"),
+        ("topics", "What does the blog cover?",
+         "<ul><li><b>Licensing rules:</b> the $10,000 CLB threshold, the $5,000 and $500 residential thresholds, license groups and renewal dates.</li>"
+         "<li><b>The exams:</b> the Commercial Business and Law exam (50 questions, 125 minutes, 35 to pass), the residential version (scale score 68) and the trade exams.</li>"
+         "<li><b>Studying:</b> how to tab and highlight books for an open-book test, and how long to plan for.</li>"
+         "<li><b>Costs:</b> the $350 CLB fee, PSI exam fees, bonds and study materials.</li>"
+         "<li><b>After the exam:</b> applications, financial statements, business setup and renewals.</li></ul>"),
+        ("how-we-check", "How are the facts checked?",
+         "<p>Every number in a post comes from an official source: the LLR pages for the Contractor's Licensing Board and the Residential Builders Commission, the PSI candidate bulletins, "
+         "or the South Carolina Code of Laws, Title 40 Chapters 11 and 59. Each post links its sources at the bottom and shows the date it was last updated. "
+         "When the rules change, such as the 2023 move of the CLB threshold from $5,000 to $10,000 or the 2025 Nonstructural Renovation exam, the affected posts are updated and re-dated. "
+         f"Spot something out of date? Email {EMAIL} and we will fix it.</p>"),
+        ("who-writes", "Who writes the posts?",
+         f"<p>Posts are written by {AUTHOR} for 1 Exam Prep, which supplies exam prep books, tabs and courses to contractors across the country. "
+         f"The team behind the blog also answers the phone at {PHONE}, so the questions in each post are the ones contractors actually ask us. "
+         "Posts stay practical: what the rule is, what it means for your next job, and what to study. Licensing decisions belong to LLR, and the posts say so when a question needs an official answer.</p>"),
+        ("study-plan", "How long should you study for a South Carolina exam?",
+         "<p>Most candidates need 4 to 8 weeks. A simple plan that works for both CLB and RBC exams:</p>"
+         "<table><thead><tr><th>Week</th><th>Focus</th></tr></thead><tbody><tr><td>1 to 2</td><td>Learn the layout of each reference book; place tabs.</td></tr>"
+         "<tr><td>3 to 5</td><td>Practice questions by topic; highlight the answers you look up.</td></tr><tr><td>6</td><td>Business and Law practice: about 2.5 minutes per question.</td></tr>"
+         "<tr><td>7 to 8</td><td>2 or more full timed practice exams, then review misses.</td></tr></tbody></table>"
+         "<p>Candidates with less time often choose highlighted and tabbed book sets or a live virtual class to shorten weeks 1 and 2.</p>"),
+        ("recent-changes", "What changed in South Carolina licensing recently?",
+         "<ul><li><b>May 2022:</b> the residential specialty registration threshold rose from $200 to $500 per job.</li>"
+         "<li><b>May 19, 2023:</b> the CLB commercial threshold rose from $5,000 to $10,000 under Act 69.</li>"
+         "<li><b>January 1, 2025:</b> the Nonstructural Renovation classification began requiring a PSI technical exam.</li>"
+         "<li><b>October 29, 2026:</b> the renewal deadline for 2026 to 2028 burglar and fire alarm contractor licenses.</li></ul>"
+         "<p>Changes like these are why every post carries an updated date. Before you bid near a limit or book an exam, check the date on the post and the linked LLR page.</p>"),
+        ("popular-licenses", "Which licenses do readers ask about most?",
+         "<p>Five licenses account for most of the questions we get from South Carolina contractors. Each link goes to the license page with its exams, limits and study packages.</p><ul>"
+         + "".join(f"<li><a href='/{l}/'>{E(BY_SLUG[l]['name'])}</a>: {E(BY_SLUG[l]['scope'])}</li>" for l in ("residential-builder", "commercial-general-building", "roofing", "commercial-business-law", "residential-hvac"))
+         + "</ul>"),
+    ]
+    faq = [
+        ("How often is the blog updated?", "Posts are reviewed when LLR or PSI changes a rule, fee or exam, and each post shows its last updated date."),
+        ("Who is the author?", f"Posts are written by {AUTHOR} for 1 Exam Prep and checked against LLR and PSI sources."),
+        ("Can I suggest a topic?", f"Yes. Email {EMAIL} with your question and it may become the next post."),
+        ("Is the blog official licensing advice?", "No. The blog explains the rules in plain English. LLR makes licensing decisions, and PSI runs the exams."),
+        ("Where are the exam books?", "Every license page lists the books, tabs and courses for that exam, with free USPS Media Mail shipping on books."),
+        ("How do I get help choosing a package?", f"Call {PHONE} or use the contact page, and tell us your license and exam date."),
+    ]
+    take = [f"{n} post{'s' if n != 1 else ''}, written by {AUTHOR} and checked against LLR and PSI.", "Start with the board: CLB for commercial work over $10,000, RBC for homes.",
+            "Most candidates study 4 to 8 weeks.", "Every post lists its official sources and update date."]
+    crumbs = [("/", "Home"), (path, "Blog")]
+    blog_ld = {"@type": "Blog", "@id": SITE + "/blog/#blog", "url": SITE + path, "name": "Pass Your SC Exam blog", "description": desc, "publisher": publisher(), "inLanguage": "en-US",
+               "blogPost": [{"@type": "BlogPosting", "headline": x["title"], "url": f"{SITE}/blog/{x['slug']}/", "datePublished": x["date"], "dateModified": x["updated"],
+                             "author": {"@type": "Person", "name": AUTHOR}} for x in POSTS]}
+    il = {"@type": "ItemList", "name": "Blog posts", "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}/blog/{x['slug']}/", "name": x["title"]} for i, x in enumerate(POSTS)]}
+    pop = ("residential-builder", "commercial-general-building", "roofing", "commercial-business-law", "residential-hvac")
+    side = '<div class="side-box"><p class="side-h">Popular licenses</p><ul class="toc">' + "".join(f'<li><a href="/{l}/">{E(BY_SLUG[l]["name"])}</a></li>' for l in pop) + "</ul></div>"
+    return dict(path=path, title=title, desc=desc, h1="South Carolina Contractor Exam Blog", lead=lead, takeaways=take, sections=sections, faq=faq,
+                sources=["clb", "rbc", "rbc_exam", "psi_clb", "psi_rbc", "code11", "code59"], crumbs=crumbs, eyebrow="Blog", side=side,
+                ld=[blog_ld, webpage_ld(path, title, desc, "CollectionPage"), il, crumbs_ld(crumbs), faq_ld(faq)])
+
+
 # ---------------------------------------------------------------- build
 def main():
     # remove only what the last build wrote, never the source or .git
@@ -776,7 +880,7 @@ def main():
         by[p["lic"]].append(p)
     counts = {l["slug"]: len(by[l["slug"]]) for l in LICENSES}
     prices = {l["slug"]: min(x["price"] for x in by[l["slug"]]) for l in LICENSES}
-    pages = [home_page(counts, prices, len(prods)), licenses_index(counts, prices, len(prods)), guide_page(), faq_page(), contact_page()]
+    pages = [home_page(counts, prices, len(prods)), licenses_index(counts, prices, len(prods)), guide_page(), faq_page(), contact_page(), blog_index()] + [post_page(x) for x in POSTS]
     for l in LICENSES:
         pages.append(license_page(l, by[l["slug"]]))
     taken = set(p["title"] for p in pages)
@@ -796,6 +900,7 @@ def main():
     open(os.path.join(OUT, "robots.txt"), "w").write(
         "User-agent: *\nAllow: /\n\n" + "".join(f"User-agent: {b}\nAllow: /\n\n" for b in ("GPTBot", "ClaudeBot", "Google-Extended", "PerplexityBot", "Bingbot")) + f"Sitemap: {SITE}/sitemap.xml\n")
     lic_lines = "\n".join(f"- [{l['name']}]({SITE}/{l['slug']}/): {counts[l['slug']]} packages from {money(prices[l['slug']])}. {l['scope']}" for l in LICENSES)
+    blog_lines = "\n".join(f"- [{x['title']}]({SITE}/blog/{x['slug']}/): {x['excerpt']}" for x in POSTS)
     llms = f"""# {BRAND}
 
 > Exam prep books, pre-printed tabs, online courses, live classes and licensing services for South Carolina contractor exams (Contractor's Licensing Board, Residential Builders Commission and local electrician and plumber cards). {len(prods)} products for {len(LICENSES)} licenses, fulfilled by 1 Exam Prep. Contact: {PHONE}, {EMAIL}.
@@ -813,6 +918,8 @@ def main():
 - [How to get a South Carolina contractor license]({SITE}/how-to-get-licensed/)
 - [FAQ]({SITE}/faq/)
 - [Contact]({SITE}/contact/)
+- [Blog]({SITE}/blog/)
+{blog_lines}
 
 ## Licenses
 {lic_lines}

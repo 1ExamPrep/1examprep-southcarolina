@@ -15,6 +15,8 @@
 - [How to get a South Carolina contractor license](https://passyoursouthcarolinacontractorexam.com/how-to-get-licensed/)
 - [FAQ](https://passyoursouthcarolinacontractorexam.com/faq/)
 - [Contact](https://passyoursouthcarolinacontractorexam.com/contact/)
+- [Blog](https://passyoursouthcarolinacontractorexam.com/blog/)
+- [South Carolina Contractor License: 15 Questions Answered](https://passyoursouthcarolinacontractorexam.com/blog/south-carolina-contractor-license-questions-answered/): CLB or Residential Builders Commission, the $10,000 rule, open-book PSI exams, fees, job limits, reciprocity and the homeowner exemption, answered in plain English.
 
 ## Licenses
 - [NASCLA Commercial General Building](https://passyoursouthcarolinacontractorexam.com/commercial-general-building/): 7 packages from $199.99. The NASCLA Commercial General Building exam is the path to an Unlimited Building (UB) license, which lets a South Carolina general contractor build commercial structures of any height.
