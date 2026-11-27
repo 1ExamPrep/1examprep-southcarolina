@@ -136,7 +136,7 @@ def load_products():
 
 
 # ---------------------------------------------------------------- layout
-NAV = [("/licenses/", "Licenses"), ("/how-to-get-licensed/", "How to get licensed"), ("/blog/", "Blog"), ("/faq/", "FAQ"), ("/contact/", "Contact")]
+NAV = [("/licenses/", "Licenses"), ("/how-to-get-licensed/", "How to get licensed"), ("/blog/", "Blog"), ("/faq/", "FAQ"), ("/reviews/", "Reviews"), ("/contact/", "Contact")]
 
 
 def ld_org():
@@ -226,7 +226,7 @@ def footer():
 <p>Exam prep books, tabs, courses and licensing help for South Carolina contractors. Orders are fulfilled by 1 Exam Prep.</p>
 <p class="fcontact"><a href="tel:{TEL}">{PHONE}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p></div>
 <div><p class="fh">Popular licenses</p><ul>{links}</ul></div>
-<div><p class="fh">Site</p><ul><li><a href="/licenses/">All licenses</a></li><li><a href="/how-to-get-licensed/">How to get licensed</a></li><li><a href="/blog/">Blog</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/contact/">Contact</a></li><li><a href="/sitemap.xml">Sitemap</a></li></ul>
+<div><p class="fh">Site</p><ul><li><a href="/licenses/">All licenses</a></li><li><a href="/how-to-get-licensed/">How to get licensed</a></li><li><a href="/blog/">Blog</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/reviews/">Customer reviews</a></li><li><a href="/contact/">Contact</a></li><li><a href="/sitemap.xml">Sitemap</a></li></ul>
 <p class="fh">Official sources</p><ul><li><a href="https://llr.sc.gov/clb/" rel="noopener">SC Contractor's Licensing Board</a></li><li><a href="https://llr.sc.gov/res/" rel="noopener">SC Residential Builders Commission</a></li></ul></div>
 </div><div class="wrap fbase"><p>&copy; 2026 {BRAND}. Not affiliated with SC LLR or PSI. Prices in US dollars.</p></div></footer>
 </body>
@@ -250,9 +250,9 @@ def faq_html(faq):
     return f'<section class="faq" id="faq"><h2 id="frequently-asked-questions">Frequently asked questions</h2><p>Short answers to the questions South Carolina candidates ask us most, checked against LLR and PSI on {CHECKED_TEXT}.</p><dl>{items}</dl></section>'
 
 
-def sources_html(keys):
+def sources_html(keys, note=None):
     lis = "".join(f'<li><a href="{SRC[k][1]}" rel="noopener">{E(SRC[k][0])}</a></li>' for k in keys)
-    return f'<section class="sources" id="sources"><h2 id="sources-h">Sources</h2><p>Licensing facts on this page come from the South Carolina Department of Labor, Licensing and Regulation and its exam vendor, PSI.</p><ul>{lis}</ul></section>'
+    return f'<section class="sources" id="sources"><h2 id="sources-h">Sources</h2><p>{note or 'Licensing facts on this page come from the South Carolina Department of Labor, Licensing and Regulation and its exam vendor, PSI.'}</p><ul>{lis}</ul></section>'
 
 
 def help_card():
@@ -270,7 +270,7 @@ def render(p):
 <main id="main">{hero}
 <div class="wrap {'layout' if side else 'single'}"><article class="content">
 <p class="lead">{p["lead"]}</p>{updated}
-{takeaways_html(p["takeaways"])}{pre}{sec}{faq_html(p["faq"])}{sources_html(p["sources"])}
+{takeaways_html(p["takeaways"])}{pre}{sec}{faq_html(p["faq"])}{sources_html(p["sources"], p.get("sources_note"))}
 </article>{side}</div>{p.get("post", "")}
 </main>
 {footer()}'''
@@ -782,6 +782,18 @@ def contact_page():
                 ld=[cp, ld_org(), crumbs_ld(crumbs), faq_ld(faq)])
 
 
+def reviews_page():
+    sys.path.insert(0, os.path.join(ROOT, "tools")); import reviewskit as rk
+    c = rk.content(BRAND, "South Carolina contractor exam", PHONE, TEL, EMAIL)
+    for k, (name, url) in zip(("rev_sa", "rev_gpolicy"), c["sources"]):
+        SRC[k] = (name, url)
+    path = rk.PATH
+    crumbs = [("/", "Home"), (path, "Reviews")]
+    return dict(path=path, title=c["title"], desc=c["desc"], h1=c["h1"], lead=c["lead"], takeaways=c["takeaways"], sections=c["sections"],
+                faq=c["faq"], sources=["rev_sa", "rev_gpolicy"], sources_note="Review sources and the rules they follow.", crumbs=crumbs, eyebrow="Reviews",
+                ld=[rk.page_ld(SITE, c["title"], c["desc"], CHECKED, SITE + "/#org"), crumbs_ld(crumbs), faq_ld(c["faq"])])
+
+
 # ---------------------------------------------------------------- blog
 def nice_date(d):
     import datetime
@@ -900,7 +912,7 @@ def main():
         by[p["lic"]].append(p)
     counts = {l["slug"]: len(by[l["slug"]]) for l in LICENSES}
     prices = {l["slug"]: min(x["price"] for x in by[l["slug"]]) for l in LICENSES}
-    pages = [home_page(counts, prices, len(prods)), licenses_index(counts, prices, len(prods)), guide_page(), faq_page(), contact_page(), blog_index()] + [post_page(x) for x in POSTS]
+    pages = [home_page(counts, prices, len(prods)), licenses_index(counts, prices, len(prods)), guide_page(), faq_page(), contact_page(), reviews_page(), blog_index()] + [post_page(x) for x in POSTS]
     for l in LICENSES:
         pages.append(license_page(l, by[l["slug"]]))
     taken = set(p["title"] for p in pages)
@@ -938,6 +950,7 @@ def main():
 - [How to get a South Carolina contractor license]({SITE}/how-to-get-licensed/)
 - [FAQ]({SITE}/faq/)
 - [Contact]({SITE}/contact/)
+- [Customer reviews]({SITE}/reviews/)
 - [Blog]({SITE}/blog/)
 {blog_lines}
 

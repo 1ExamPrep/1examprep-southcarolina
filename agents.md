@@ -15,6 +15,7 @@
 - [How to get a South Carolina contractor license](https://passyoursouthcarolinacontractorexam.com/how-to-get-licensed/)
 - [FAQ](https://passyoursouthcarolinacontractorexam.com/faq/)
 - [Contact](https://passyoursouthcarolinacontractorexam.com/contact/)
+- [Customer reviews](https://passyoursouthcarolinacontractorexam.com/reviews/)
 - [Blog](https://passyoursouthcarolinacontractorexam.com/blog/)
 - [South Carolina Contractor License: 15 Questions Answered](https://passyoursouthcarolinacontractorexam.com/blog/south-carolina-contractor-license-questions-answered/): CLB or Residential Builders Commission, the $10,000 rule, open-book PSI exams, fees, job limits, reciprocity and the homeowner exemption, answered in plain English.
 

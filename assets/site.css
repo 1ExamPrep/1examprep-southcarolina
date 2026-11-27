@@ -138,3 +138,6 @@ h3{font-size:19px;margin:0 0 6px}
 .post-list{list-style:none;padding:0;display:grid;gap:16px;margin:18px 0}
 .post-card{background:var(--bg);border-radius:var(--r);padding:22px 24px}.post-card h3{font-size:22px;margin:4px 0 8px}.post-card h3 a{color:var(--ink)}
 .post-tag{margin:0;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--green)}.post-by{font-size:13px;color:var(--mute)}
+
+/* reviews page */
+.reviews-embed{margin:18px 0 24px;min-height:120px}.reviews-embed iframe{display:block;width:100%;min-width:100%;border:0}.reviews-fallback{font-size:.95em;opacity:.8}
