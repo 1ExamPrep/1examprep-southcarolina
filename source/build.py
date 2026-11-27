@@ -348,6 +348,25 @@ def delivery(p):
     return "Ships free by USPS Media Mail to US addresses."
 
 
+DELIVERY_DAYS = {"@type": "OpeningHoursSpecification", "dayOfWeek": ["https://schema.org/Monday", "https://schema.org/Tuesday", "https://schema.org/Wednesday", "https://schema.org/Thursday", "https://schema.org/Friday"]}
+
+
+def delivery_time(hmin, hmax, tmin, tmax):
+    """ShippingDeliveryTime in business days. Matches the page copy: Media Mail 2 to 8 business days,
+    rental / Ultimate / 1 Package orders up to 15, online access by email the same or next business day."""
+    return {"@type": "ShippingDeliveryTime", "businessDays": DELIVERY_DAYS,
+            "handlingTime": {"@type": "QuantitativeValue", "minValue": hmin, "maxValue": hmax, "unitCode": "DAY"},
+            "transitTime": {"@type": "QuantitativeValue", "minValue": tmin, "maxValue": tmax, "unitCode": "DAY"}}
+
+
+def offer_delivery_time(p):
+    if p["online"]:
+        return delivery_time(0, 1, 0, 0)
+    if re.search(r"\b(rental|ultimate|1 package)\b", p["title"] + " " + p["type"], re.I):
+        return delivery_time(0, 7, 2, 8)
+    return delivery_time(0, 2, 2, 8)
+
+
 # ---------------------------------------------------------------- product page
 def product_card(p, lic_name=None):
     img = f'<img src="{E(p["img"])}&width=480" alt="{E(p["alt"])}" width="240" height="240" loading="lazy">' if p["img"] else '<img src="/assets/img/cat-services.webp" alt="Exam prep package illustration" width="240" height="240" loading="lazy">'
@@ -431,7 +450,8 @@ def product_page(p, lic, siblings, taken):
     crumbs = [("/", "Home"), ("/licenses/", "Licenses"), (f"/{lic['slug']}/", lic["name"]), (path, p["short"])]
     img_url = (p["img"] or SITE + "/assets/img/og.jpg")
     shipping = {"@type": "OfferShippingDetails", "shippingRate": {"@type": "MonetaryAmount", "value": 0, "currency": "USD"},
-                "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "US"}}
+                "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "US"},
+                "deliveryTime": offer_delivery_time(p)}
     if p["online"]:
         shipping["shippingLabel"] = "Online access by email, nothing shipped"
     else:
